@@ -38,32 +38,22 @@
       </div>
     </div>
 
-	<script src="js/zepto.min.js"></script>
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/main.js"></script>
 	
 	<script>
-				function addRepo(repo) {
-					var $item = $("<li>").addClass("repo grid-1 " + (repo.language || '').toLowerCase());
-					var $link = $("<a>").attr("href", repo.svn_url).attr("target", "_blank").appendTo($item);
-					$link.append($("<h2>").text(repo.name));
-					$link.append($("<h3>").text(repo.language));
-					$link.append($("<p>").text(repo.description));
-					$item.appendTo("#repos");
-				}				
-				
-				var repoNames = function(name){
-						this.name = name;
-				}
-				
-				function addRepos(name) {
-					var uri = "https://api.github.com/repos/fabriciocolombo/"+name+"?callback=?";
-
-					$.getJSON(uri, function (result) {							
-						  addRepo(result.data);
-					});
-				}
-
-				addRepos("TextAreaAppender");
-				addRepos("delphi-rest-client-api");
+			jQuery("#repository").repository({
+						addRepo: function addRepo(item) {
+											var $item = $("<li>").addClass("repo grid-1 " + (item.language || '').toLowerCase());
+											var $link = $("<a>").attr("href", item.svn_url).attr("target", "_blank").appendTo($item);
+											$link.append($("<h2>").text(item.name));
+											$link.append($("<h3>").text(item.language));
+											$link.append($("<p>").text(item.description));
+											$item.appendTo("#repos");
+										}								
+					});			
+					
+			repository.loadRepo();
 	</script>
   </body>
 </html>

@@ -8,6 +8,7 @@
 
     <!-- Le styles -->
     <link rel="stylesheet" href="css/bootstrap.css" >
+		<link rel="stylesheet" href="css/bootstrap-responsive.css">
 		<link rel="stylesheet" href="css/main.css">
     <style type="text/css">
       body {
@@ -18,8 +19,7 @@
         padding: 9px 0;
       }
     </style>
-    <link href="css/bootstrap-responsive-min.css" rel="stylesheet">
-
+    
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -82,38 +82,25 @@
 
     <script src="js/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
+		<script src="js/main.js"></script>
 	
 	<script>
-				function addRepo(repo) {
-					var $item = $("<div>").addClass("span4");
+			jQuery("#repository").repository({
+						addRepo: function addRepo(item) {
+											var $item = $("<div>").addClass("span4");
 
-					$item.append($("<h2>").text(repo.name));
-					$item.append($("<h5>").text(repo.language));
-					$item.append($("<p>").text(repo.description));
+											$item.append($("<h2>").text(item.name));
+											$item.append($("<h5>").text(item.language));
+											$item.append($("<p>").text(item.description));
+											
+											var $link = $("<a>").addClass("btn btn-primary").attr("href", item.svn_url).attr("target", "_blank").text("View details").appendTo($("<p>"));
+											$item.append($link);
+											
+											$item.appendTo("#repos");
+										}								
+					});			
 					
-					var $link = $("<a>").addClass("btn btn-primary ").attr("href", repo.svn_url).attr("target", "_blank").text("View details").appendTo($("<p>"));
-					$item.append($link);
-					
-					$item.appendTo("#repos");
-				}				
-				
-				var repoNames = function(name){
-						this.name = name;
-				}
-				
-				function addRepos(name) {
-					var uri = "https://api.github.com/repos/fabriciocolombo/"+name+"?callback=?";
-
-					$.getJSON(uri, function (result) {							
-						  addRepo(result.data);
-					});
-				}
-
-				var repositories = ["TextAreaAppender","delphi-rest-client-api","fabriciocolombo.github.com"];
-				
-				$.each(repositories, function (i, repo) {
-					addRepos(repo);
-				});
+			repository.loadRepo();
 	</script>
 </body>
 </html>
