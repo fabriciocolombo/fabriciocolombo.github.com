@@ -1,7 +1,7 @@
 (function ($) {
 
     var repository = {
-				repoList: ["TextAreaAppender","delphi-rest-client-api","fabriciocolombo.github.com"],
+				repoList: ["TextAreaAppender","delphi-rest-client-api","fabriciocolombo.github.com","mongo-delphi-driver","db-benchmark"],
 				addRepo:function () {},
 				loadRepo: function(){
 					$.each(repository.repoList, function (i, repo) {
