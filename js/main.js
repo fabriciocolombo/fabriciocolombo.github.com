@@ -8,11 +8,14 @@
 
 					$.getJSON(uri, function (result) {	
 						result.data.sort(function(left, right){
-							return left.watchers - right.watchers;
+							return Date.parse(left.updated_at) - Date.parse(right.updated_at);
 						}).reverse();
 					
 						$.each(result.data, function (i, repo) {
+						
+							if (!repo.fork){
 								repository.addRepo(repo);
+							};
 						});	
 					});
 				}
