@@ -4,11 +4,15 @@
 				repoList: ["TextAreaAppender","delphi-rest-client-api","fabriciocolombo.github.com","mongo-delphi-driver","db-benchmark"],
 				addRepo:function () {},
 				loadRepo: function(){
-					$.each(repository.repoList, function (i, repo) {
-						var uri = "https://api.github.com/repos/fabriciocolombo/"+repo+"?callback=?";
+					var uri = "https://api.github.com/users/fabriciocolombo/repos?callback=?";
 
-						$.getJSON(uri, function (result) {							
-								repository.addRepo(result.data);
+					$.getJSON(uri, function (result) {	
+						result.data.sort(function(left, right){
+							return left.watchers - right.watchers;
+						}).reverse();
+					
+						$.each(result.data, function (i, repo) {
+								repository.addRepo(repo);
 						});	
 					});
 				}
