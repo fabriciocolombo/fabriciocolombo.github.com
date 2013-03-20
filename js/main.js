@@ -8,7 +8,7 @@
 
 					$.getJSON(uri, function (result) {	
 						result.data.sort(function(left, right){
-							return Date.parse(left.updated_at) - Date.parse(right.updated_at);
+							return Date.parse(left.pushed_at) - Date.parse(right.pushed_at);
 						}).reverse();
 					
 						$.each(result.data, function (i, repo) {
